@@ -4,27 +4,30 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from './ui/button'
+import { Startup,Author } from '@/sanity/types'
 
+
+export type StartupTypeCard = Omit<Startup, "author"> & {author?: Author }
 const StartupCard = ({post} : {post: StartupTypeCard}) => {
 
-    const {createdAt,views,author : { _id : authorId,name}, title, _id, category, image, description} = post;
+    const {_createdAt,views,author , title, _id, category, image, description} = post;
 
   return (
     <li className='startup-card group'>
         <div className='flex-between'>
             <p className='startup_card_date'>
-                {formatDate(createdAt)}
+                {formatDate(_createdAt)}
             </p>
             <div className='flex gap-1.5'>
                 <EyeIcon className='size-6 text-primary'/>
                 <span className='text-16-medium'>{views}</span>
             </div>
         </div>
-
+ 
         <div className='flex-between mt-5 gap-5'>
             <div className='flex-1'>
-                <Link href={`/user/${authorId}`}>
-                <p className='text-16-medium line-clamp-1'>{name}</p>
+                <Link href={`/user/${author?._id}`}>
+                <p className='text-16-medium line-clamp-1'>{author?.name}</p>
                 </Link>
 
                 <Link href={`/startup/${_id}`}>
@@ -32,7 +35,7 @@ const StartupCard = ({post} : {post: StartupTypeCard}) => {
                 </Link>
             </div>
 
-            <Link href={`/user/${authorId}`}>
+            <Link href={`/user/${author?._id}`}>
             <Image src="https://placehold.co/48x48" alt='placeholder' width={48} height={48} className='rounded-full'/></Link>
 
         </div>
@@ -45,7 +48,7 @@ const StartupCard = ({post} : {post: StartupTypeCard}) => {
         </Link>
 
         <div className='flex-between gap-3 mt-5'>
-            <Link href={`/?query=${category.toLowerCase()}`}>
+            <Link href={`/?query=${category?.toLowerCase()}`}>
             <p className='text-16-medium'>
                 {category}
             </p>

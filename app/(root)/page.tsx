@@ -1,5 +1,7 @@
 import SearchForm from "@/components/SearchForm";
-import StartupCard from "@/components/StartupCard";
+import StartupCard,{StartupTypeCard}  from "@/components/StartupCard";
+import { sanityFetch, SanityLive } from "@/sanity/lib/live";
+import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 
 
 export default async function Home({ searchParams }:{
@@ -7,18 +9,10 @@ export default async function Home({ searchParams }:{
 }) {
 
   const query = (await searchParams).query;
-
-  const posts = [{
-    createdAt : new Date(),
-    views : 55,
-    author: { _id:1 , name:'Karan'},
-    _id: 1,
-    description: "This is a description",
-    image:"https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
-    category: "Pets",
-    title: "Your Pets",
-
-  }]
+  const params = {search: query || null}; 
+  const {data: posts} = await sanityFetch({query : STARTUPS_QUERY, params})
+  //console.log(JSON.stringify(posts, null, 2));
+  
   return (
     <>
     <section className="pink_container">
@@ -35,9 +29,9 @@ export default async function Home({ searchParams }:{
         {query ? `Search results for "${query}"` : "All startups"}
       </p>
 
-      <ul className="mt-7 card-grid">
+      <ul className="mt-7 card_grid">
         {posts?.length > 0 ? (
-          posts.map((post:StartupCardType) => (
+          posts.map((post:StartupTypeCard  ) => (
             <StartupCard key={post?._id} post={post}/>
           ))
         ): (
@@ -46,6 +40,8 @@ export default async function Home({ searchParams }:{
 
       </ul>
     </section>
+
+    <SanityLive />
     </>
   );
 }

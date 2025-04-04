@@ -1,6 +1,5 @@
 import React from "react";
 import Form from "next/form";
-
 import { Search } from "lucide-react";
 import SearchFormReset from "./SearchFormReset";
 
