@@ -22,10 +22,11 @@
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** React / Next.js
-- **Backend:** (Add your backend – Node.js, Express, etc.)
-- **Database:** (e.g., MongoDB / PostgreSQL)
-- **Others:** (e.g., Tailwind CSS, Prisma, etc.)
+- **Frontend:** Next.js 14
+- **Backend:** Sanity (Headless CMS)
+- **Database:** Sanity (Content Lake)
+- **Others:** Tailwind CSS, shadcn/ui (UI Components), Sentry (Error Monitoring)
+
 
 ---
 
